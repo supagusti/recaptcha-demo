@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>reCAPTCHA demo: Explicit render after an onload callback</title>
+    <script type="text/javascript">
+      var verifyCallback = function(response) {
+        //alert(response);
+        document.getElementById('submitbutton').disabled=false;
+        document.getElementById('responsePost').value=response;
+      };  
+      var onloadCallback = function() {
+        grecaptcha.render('recaptcha_html_element', {
+          'sitekey' : 'YOUR-PUBLIC-KEY-SEE-GOOGLE-SITE',
+          'callback' : verifyCallback,
+        });
+      };
+    </script>
+  </head>
+  <body>
+	<h1><strong>reCAPTCHA DEMO</strong></h1>
+	<form action="recaptcha-server.php" method="POST">
+	  <div id="recaptcha_html_element"></div>
+	  <br>
+	  <input type="email" name="email" placeholder="EMail">
+	  <input id="responsePost" type="hidden" name="responsePost" >
+	  <input id="submitbutton"  disabled=disabled type="submit" value="Submit">
+	</form>
+	<br>
+	<a href="http://test.mitschke.at" class="button button-alt"><i class="fa fa-chevron-circle-left"></i> Go back</a> 
+	<a href="recaptcha-form.html" class="button button-small"><i class="fa fa-refresh"></i> Restart</a>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+  </body>
+</html>      
